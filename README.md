@@ -1,4 +1,4 @@
-                                                 CCAP Dataset Description
+                                                CCAP Dataset Description
 
 This dataset is systematically organized and standardized, with the top-level directory divided into two main parts: expert-data and data, which are used respectively for expert validation and model training/evaluation.
 
