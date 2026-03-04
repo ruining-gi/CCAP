@@ -1,13 +1,57 @@
-                                                CCAP Dataset Description
+## Models (Baseline Implementations)
 
-This dataset is systematically organized and standardized, with the top-level directory divided into two main parts: expert-data and data, which are used respectively for expert validation and model training/evaluation.
+This repository currently provides **baseline segmentation model definitions only** (no training / testing / dataset scripts). The implementations are intended to be imported into your own pipeline for training and evaluation on CCAP (masks) + ARCADE (images).
 
-The data section contains 1,500 coronary angiography images and their corresponding segmentation masks. All original images are derived from the ARCADE dataset and were obtained through extraction and standardized preprocessing of the original DICOM files. The data are split into three subsets with a ratio of 7:1:2, including training (1,050 cases), validation (150 cases), and testing (300 cases).
+### Available model files
 
-Each subset consists of two subfolders: images and annotations.
-The images folder stores coronary angiography images in .png format.
-The annotations folder contains the corresponding segmentation masks, with filenames kept identical to ensure accurate indexing and traceability.
+- `models/unet.py` — U-Net baseline  
+- `models/deeplabv3.py` — DeepLabV3 baseline  
+- `models/enet.py` — ENet baseline  
+- `models/gcn.py` — GCN-based segmentation baseline  
+- `models/sk.py` — SK-based module/model variant (see code comments for details)
 
-The expert-data section contains 100 cases randomly selected from the data subset for expert-level annotation and model performance validation. Its internal structure mirrors that of the data directory, comprising images and annotations subfolders. Both images and annotation masks are stored in .png format and follow the same one-to-one naming convention.
+> Note: The exact class names may differ by file. Please open each file to confirm the exported class (e.g., `UNet`, `DeepLabV3`, etc.).
 
-![image text](https://github.com/ruining-gi/image/blob/aa18be81063933081a647ccc9269e8c359520387/all.jpg)
+### How to use with CCAP + ARCADE
+
+CCAP releases masks and split CSV mapping files (`train.csv`, `val.csv`, `test.csv`) that map each mask to the corresponding ARCADE image using two columns:
+
+- `mask_filename` (path inside extracted CCAP directory)
+- `source_image_relpath` (path inside ARCADE directory, e.g., `/train/506.png`)
+
+**Recommended path joining:**
+
+- CCAP mask path: `<CCAP_ROOT>/<mask_filename>`
+- ARCADE image path: `<ARCADE_ROOT>/<source_image_relpath>`  
+  If `source_image_relpath` starts with `/`, treat it as relative by removing the leading slash.
+
+You can build a dataset loader in your own code by reading the CSV and returning `(image, mask)` pairs after preprocessing (resize/crop, normalize, etc.). Then import a model from `models/` and train with your preferred loss (e.g., BCE/Dice for binary masks).
+
+### Minimal sanity check (import + forward pass)
+
+If you want to quickly verify that the model code imports correctly and runs a forward pass, use the snippet below.  
+First confirm the class name in each model file (e.g., `class UNet(...)`), then update the imports accordingly.
+
+```bash
+python - << 'PY'
+import torch
+
+# Update these imports/class names to match your code
+from models.unet import UNet
+# from models.deeplabv3 import DeepLabV3
+# from models.enet import ENet
+# from models.gcn import GCN
+# from models.sk import SKNet
+
+x = torch.randn(1, 3, 512, 512)  # dummy input
+m = UNet()                       # change to another model if needed
+m.eval()
+
+with torch.no_grad():
+    y = m(x)
+
+if isinstance(y, dict):
+    print("Output is a dict:", {k: tuple(v.shape) for k, v in y.items()})
+else:
+    print("Output shape:", tuple(y.shape))
+PY
