@@ -26,16 +26,16 @@ x_transforms = transforms.Compose([
 y_transforms = transforms.ToTensor()
 
 # 路径配置
-train_image_dir = "/mnt/diskb5/ruining_private/CHENXI/adjust/reconstructiondata/train/image/"
-train_mask_dir  = "/mnt/diskb5/ruining_private/CHENXI/adjust/reconstructiondata/train/mask/"
-val_image_dir   = "/mnt/diskb5/ruining_private/CHENXI/adjust/reconstructiondata/val/image/"
-val_mask_dir    = "/mnt/diskb5/ruining_private/CHENXI/adjust/reconstructiondata/val/mask/"
-test_image_dir  = "/mnt/diskb5/ruining_private/CHENXI/adjust/reconstructiondata/test/image/"
-test_mask_dir   = "/mnt/diskb5/ruining_private/CHENXI/adjust/reconstructiondata/test/mask/" 
+train_image_dir = ""
+train_mask_dir  = ""
+val_image_dir   = ""
+val_mask_dir    = ""
+test_image_dir  = ""
+test_mask_dir   = "" 
 
-save_vis_dir = "/mnt/diskb5/ruining_private/CHENXI/adjust/SK/result_ARCADE2/sk_visualizations/"
+save_vis_dir = ""
 # 新增：分割结果单独存储的文件夹路径
-save_seg_dir = "/mnt/diskb5/ruining_private/CHENXI/adjust/SK/result_ARCADE2/sk_segmentations/"
+save_seg_dir = ""
 os.makedirs(save_vis_dir, exist_ok=True)
 # 新增：创建分割结果文件夹
 os.makedirs(save_seg_dir, exist_ok=True)
