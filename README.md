@@ -11,7 +11,20 @@ This repository currently provides **baseline segmentation model definitions onl
 - `models/sk.py` — SK-based module/model variant (see code comments for details)
 
 > Note: The exact class names may differ by file. Please open each file to confirm the exported class (e.g., `UNet`, `DeepLabV3`, etc.).
+## Available training / testing scripts
 
+- `trainUnet.py` — Training and testing script for the U-Net baseline.
+- `traindeeplabv3.py` — Training and testing script for the DeepLabV3 baseline.
+- `trainGCN.py` — Training and testing script for the GCN-based segmentation baseline.
+- `trainSK2.py` — Training and testing script for the SK-based segmentation model.
+  
+> **Note:** Each script integrates both training and testing functions.  
+> The desired mode (`train` or `test`) is specified through the command-line instruction when executing the script.
+>
+> In training mode, the model is trained on the training set and automatically evaluated on the validation set after each epoch.  
+> In testing mode, the trained model checkpoint is loaded and evaluated on the test set independently.
+>
+> Dataset paths, checkpoint paths, training hyperparameters, and other configurations should be adjusted according to the local environment.
 ### How to use with CCAP + ARCADE
 
 CCAP releases masks and split CSV mapping files (`train.csv`, `val.csv`, `test.csv`) that map each mask to the corresponding ARCADE image using two columns:
