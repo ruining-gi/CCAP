@@ -24,14 +24,14 @@ x_transforms = transforms.Compose([
 y_transforms = transforms.ToTensor()
 
 # 路径配置
-train_image_dir = "/mnt/diskb5/ruining_private/CHENXI/adjust/SGATdata/train/image/"
-train_mask_dir  = "/mnt/diskb5/ruining_private/CHENXI/adjust/SGATdata/train/mask/"
-val_image_dir   = "/mnt/diskb5/ruining_private/CHENXI/adjust/SGATdata/val/image/"
-val_mask_dir    = "/mnt/diskb5/ruining_private/CHENXI/adjust/SGATdata/val/mask/"
-test_image_dir  = "/mnt/diskb5/ruining_private/CHENXI/adjust/SGATdata/test/image/"
-test_mask_dir   = "/mnt/diskb5/ruining_private/CHENXI/adjust/SGATdata/test/mask/" 
+train_image_dir = ""
+train_mask_dir  = ""
+val_image_dir   = ""
+val_mask_dir    = ""
+test_image_dir  = ""
+test_mask_dir   = "" 
 
-save_vis_dir = "/mnt/diskb5/ruining_private/CHENXI/adjust/DeepLabV3/result4/deeplab_visualizations/"
+save_vis_dir = ""
 os.makedirs(save_vis_dir, exist_ok=True)
 
 def compute_metrics(preds, targets, threshold=0.5, eps=1e-7):
