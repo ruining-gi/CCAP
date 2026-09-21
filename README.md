@@ -17,6 +17,7 @@ This repository currently provides **baseline segmentation model definitions onl
 - `traindeeplabv3.py` — Training and testing script for the DeepLabV3 baseline.
 - `trainGCN.py` — Training and testing script for the GCN-based segmentation baseline.
 - `trainSK2.py` — Training and testing script for the SK-based segmentation model.
+- `trainenet.py` — Training and testing script for the Enet-based segmentation model.
   
 > **Note:** Each script integrates both training and testing functions.  
 > The desired mode (`train` or `test`) is specified through the command-line instruction when executing the script.
